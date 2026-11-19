@@ -31,7 +31,8 @@ const Work = () => {
             <br /> shipped work<span className="text-accent">.</span>
           </h1>
           <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
-            Mobile apps, web platforms, museum terminals and the occasional sound installation.
+            Mobile apps, web platforms, museum installation full-stack development and the
+            occasional sound installation.
             Some of these are still running in production; a few are open source.
           </p>
         </Reveal>

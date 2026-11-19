@@ -41,8 +41,8 @@ export const capabilities: Capability[] = [
   {
     title: "Museums & culture",
     description:
-      "Exhibition terminals, beacon guides and audio walks where the software has to work in a real room, with real visitors.",
-    items: ["Exhibition terminals", "Beacon guides", "Audio", "Multilingual"],
+      "Museum installation full-stack development, beacon guides and audio walks where the software has to work in a real room, with real visitors.",
+    items: ["Museum installations", "Full-stack development", "Beacon guides", "Audio"],
   },
   {
     title: "Cloud & infrastructure",
@@ -138,7 +138,7 @@ export const history = [
   {
     year: "2013",
     title: "Native and cross-platform",
-    text: "From mobile web into native and cross-platform apps for Android, iOS and Xamarin, including our open source Muze Player.",
+    text: "From mobile web into native and cross-platform apps for Android, iOS and Flutter, including our open source Muze Player.",
   },
   {
     year: "2015",
@@ -148,7 +148,7 @@ export const history = [
   {
     year: "2017",
     title: "Culture and craft",
-    text: "Museum guides, exhibition terminals, publishing for children with visual impairment and satellite broadcasting.",
+    text: "Museum guides, museum installation full-stack development, publishing for children with visual impairment and a shop bringing relief from Nepal.",
   },
   {
     year: "2023",
