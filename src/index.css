@@ -5,89 +5,71 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Editorial dark palette — warm ink, paper type, copper accent */
+    --background: 24 9% 6%;
+    --foreground: 40 26% 93%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 24 8% 9%;
+    --card-foreground: 40 26% 93%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 24 8% 8%;
+    --popover-foreground: 40 26% 93%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 40 30% 94%;
+    --primary-foreground: 24 9% 7%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 24 7% 13%;
+    --secondary-foreground: 40 22% 90%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 24 7% 13%;
+    --muted-foreground: 36 10% 62%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 20 62% 52%;
+    --accent-foreground: 24 12% 8%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 66% 52%;
+    --destructive-foreground: 40 26% 95%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 30 8% 18%;
+    --input: 30 8% 22%;
+    --ring: 20 62% 52%;
 
-    --radius: 0.5rem;
+    --radius: 0.25rem;
 
-    --sidebar-background: 0 0% 98%;
+    --surface: 24 8% 10%;
+    --surface-strong: 24 8% 14%;
+    --hairline: 30 8% 20%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 24 9% 6%;
+    --sidebar-foreground: 40 26% 93%;
+    --sidebar-primary: 40 30% 94%;
+    --sidebar-primary-foreground: 24 9% 7%;
+    --sidebar-accent: 24 7% 13%;
+    --sidebar-accent-foreground: 40 22% 90%;
+    --sidebar-border: 30 8% 18%;
+    --sidebar-ring: 20 62% 52%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 24 9% 6%;
+    --foreground: 40 26% 93%;
+    --card: 24 8% 9%;
+    --card-foreground: 40 26% 93%;
+    --popover: 24 8% 8%;
+    --popover-foreground: 40 26% 93%;
+    --primary: 40 30% 94%;
+    --primary-foreground: 24 9% 7%;
+    --secondary: 24 7% 13%;
+    --secondary-foreground: 40 22% 90%;
+    --muted: 24 7% 13%;
+    --muted-foreground: 36 10% 62%;
+    --accent: 20 62% 52%;
+    --accent-foreground: 24 12% 8%;
+    --destructive: 0 66% 52%;
+    --destructive-foreground: 40 26% 95%;
+    --border: 30 8% 18%;
+    --input: 30 8% 22%;
+    --ring: 20 62% 52%;
   }
 }
 
@@ -96,8 +78,111 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "ss01" 1, "cv11" 1;
+  }
+
+  ::selection {
+    @apply bg-accent text-accent-foreground;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-[1380px] px-5 sm:px-8 lg:px-12;
+  }
+
+  .eyebrow {
+    @apply font-mono text-[10.5px] uppercase tracking-[0.24em] text-muted-foreground;
+  }
+
+  .display {
+    @apply font-display font-normal leading-[0.95] tracking-[-0.02em];
+  }
+
+  .rule {
+    @apply border-t border-border;
+  }
+
+  .surface-panel {
+    @apply rounded-sm border border-border bg-card;
+  }
+}
+
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  .reveal[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E");
+    mix-blend-mode: soft-light;
+  }
+
+  .hover-zoom img {
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .hover-zoom:hover img {
+    transform: scale(1.04);
+  }
+
+  .marquee-track {
+    animation: marquee 38s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .marquee-track {
+      animation: none;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
   }
 }
 
@@ -105,5 +190,5 @@ html,
 body,
 #root {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
 }
