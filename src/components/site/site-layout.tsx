@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { trackPageView } from "@/lib/gtag";
 import { studio } from "@/data/studio";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { Wordmark } from "./wordmark";
@@ -211,10 +212,12 @@ interface SiteLayoutProps {
 
 export const SiteLayout = ({ children }: SiteLayoutProps) => {
   const { pathname } = useLocation();
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
-  }, [pathname]);
+    trackPageView(pathname, i18n.resolvedLanguage ?? i18n.language);
+  }, [pathname, i18n.resolvedLanguage, i18n.language]);
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
