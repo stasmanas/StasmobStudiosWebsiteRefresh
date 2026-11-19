@@ -10,7 +10,8 @@
     "check": "pnpm lint && pnpm exec tsc --noEmit",
     "lint": "eslint .",
     "preview": "vite preview",
-    "pInstall": "pnpm install"
+    "pInstall": "pnpm install",
+    "postinstall": "chmod +x node_modules/.pnpm/@esbuild+linux-x64@0.28.2/node_modules/@esbuild/linux-x64/bin/esbuild || true"
   },
   "dependencies": {
     "@enter-pro/analytics-sdk": "^0.0.10",
