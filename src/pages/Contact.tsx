@@ -74,7 +74,6 @@ const Contact = () => {
                   >
                     {studio.contacts.phone}
                   </a>
-                  <p className="mt-1 text-sm text-muted-foreground">Skype · {studio.contacts.skype}</p>
                 </div>
               </div>
 

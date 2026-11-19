@@ -15,7 +15,6 @@ export const studio = {
     email: "info@stasmobstudios.com",
     phone: "+370 682 29864",
     phoneHref: "+37068229864",
-    skype: "smubikas",
     address: ["Džiūkų g. 22 – 26", "Vilnius, Lithuania"],
   },
 };

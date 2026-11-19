@@ -172,7 +172,6 @@ const Footer = () => (
             >
               {studio.contacts.phone}
             </a>
-            <span className="block">Skype · {studio.contacts.skype}</span>
           </address>
         </div>
       </div>
