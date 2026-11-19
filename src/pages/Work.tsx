@@ -1,19 +1,23 @@
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { SiteLayout } from "@/components/site/site-layout";
 import { ProjectCard } from "@/components/site/project-card";
 import { Reveal } from "@/components/site/reveal";
-import { categories, projects, type CategoryId } from "@/data/projects";
+import { categoryIds, projects, type CategoryId } from "@/data/projects";
+import { useCategoryNames } from "@/i18n/project-copy";
 import { cn } from "@/lib/utils";
 
 type Filter = "all" | CategoryId;
 
 const Work = () => {
+  const { t } = useTranslation();
+  const categoryNames = useCategoryNames();
   const [filter, setFilter] = useState<Filter>("all");
 
   const counts = useMemo(
     () =>
-      categories.reduce<Record<string, number>>((acc, category) => {
-        acc[category.id] = projects.filter((project) => project.category === category.id).length;
+      categoryIds.reduce<Record<string, number>>((acc, category) => {
+        acc[category] = projects.filter((project) => project.category === category).length;
         return acc;
       }, {}),
     [],
@@ -25,15 +29,14 @@ const Work = () => {
     <SiteLayout>
       <section className="shell pt-14 sm:pt-20">
         <Reveal>
-          <p className="eyebrow">Work — {projects.length} projects</p>
+          <p className="eyebrow">{t("work.eyebrow", { count: projects.length })}</p>
           <h1 className="mt-5 display text-[clamp(2.6rem,6vw,5rem)] text-foreground">
-            Fifteen years of
-            <br /> shipped work<span className="text-accent">.</span>
+            {t("work.title1")}
+            <br /> {t("work.title2")}
+            <span className="text-accent">.</span>
           </h1>
           <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
-            Mobile apps, web platforms, museum installation full-stack development and the
-            occasional sound installation.
-            Some of these are still running in production; a few are open source.
+            {t("work.desc")}
           </p>
         </Reveal>
 
@@ -48,21 +51,21 @@ const Work = () => {
                 : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground",
             )}
           >
-            All · {projects.length}
+            {t("work.filterAll")} · {projects.length}
           </button>
-          {categories.map((category) => (
+          {categoryIds.map((category) => (
             <button
-              key={category.id}
+              key={category}
               type="button"
-              onClick={() => setFilter(category.id)}
+              onClick={() => setFilter(category)}
               className={cn(
                 "rounded-sm border px-3.5 py-2 font-mono text-[10.5px] uppercase tracking-[0.16em] transition-colors",
-                filter === category.id
+                filter === category
                   ? "border-accent bg-accent text-accent-foreground"
                   : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground",
               )}
             >
-              {category.label} · {counts[category.id]}
+              {categoryNames[category]} · {counts[category]}
             </button>
           ))}
         </Reveal>
@@ -78,7 +81,7 @@ const Work = () => {
         </div>
         {visible.length === 0 && (
           <p className="border-t border-border py-16 text-sm text-muted-foreground">
-            Nothing in this category yet.
+            {t("work.empty")}
           </p>
         )}
       </section>

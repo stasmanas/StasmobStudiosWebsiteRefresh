@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "fallbackLng": "en",
+  "languages": [
+    {
+      "code": "en",
+      "label": "English",
+      "detect": ["en"],
+      "dir": "ltr"
+    },
+    {
+      "code": "lt",
+      "label": "Lietuvių",
+      "detect": ["lt"],
+      "dir": "ltr"
+    },
+    {
+      "code": "de",
+      "label": "Deutsch",
+      "detect": ["de"],
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "Français",
+      "detect": ["fr"],
+      "dir": "ltr"
+    },
+    {
+      "code": "ru",
+      "label": "Русский",
+      "detect": ["ru"],
+      "dir": "ltr"
+    }
+  ]
+}

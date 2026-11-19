@@ -1,44 +1,51 @@
 import { Link, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { SiteLayout } from "@/components/site/site-layout";
 import { Reveal } from "@/components/site/reveal";
-import { categoryLabel, getProject, projects } from "@/data/projects";
+import { getProject, projects } from "@/data/projects";
 import { studio } from "@/data/studio";
+import { useCategoryNames, useProjectTexts } from "@/i18n/project-copy";
 
 const ProjectDetail = () => {
+  const { t } = useTranslation();
   const { slug } = useParams();
   const project = getProject(slug);
+  const texts = useProjectTexts();
+  const categoryNames = useCategoryNames();
 
   if (!project) {
     return (
       <SiteLayout>
         <section className="shell py-24">
-          <p className="eyebrow">Not found</p>
+          <p className="eyebrow">{t("project.notFound.eyebrow")}</p>
           <h1 className="mt-4 display text-[clamp(2.4rem,5vw,4rem)] text-foreground">
-            This project is not in the archive.
+            {t("project.notFound.title")}
           </h1>
           <p className="mt-4 max-w-md text-sm text-muted-foreground">
-            It may have been renamed. Everything we have published is listed on the work page.
+            {t("project.notFound.desc")}
           </p>
           <Link
             to="/work"
             className="mt-8 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-accent"
           >
-            <ArrowLeft className="h-3.5 w-3.5" /> Back to work
+            <ArrowLeft className="h-3.5 w-3.5" /> {t("project.notFound.back")}
           </Link>
         </section>
       </SiteLayout>
     );
   }
 
+  const text = texts[project.slug];
   const currentIndex = projects.findIndex((item) => item.slug === project.slug);
   const next = projects[(currentIndex + 1) % projects.length];
+  const nextText = texts[next.slug];
 
   const meta = [
-    project.client && { label: "Client", value: project.client },
-    { label: "Date", value: project.date },
-    { label: "Discipline", value: categoryLabel(project.category) },
-    project.tags.length > 0 && { label: "Tags", value: project.tags.join(", ") },
+    project.client && { label: t("project.meta.client"), value: project.client },
+    { label: t("project.meta.date"), value: text.date },
+    { label: t("project.meta.discipline"), value: categoryNames[project.category] },
+    { label: t("project.meta.tags"), value: text.tags },
   ].filter(Boolean) as { label: string; value: string }[];
 
   return (
@@ -50,20 +57,23 @@ const ProjectDetail = () => {
             className="group inline-flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
-            All work
+            {t("project.back")}
           </Link>
         </Reveal>
 
-        <Reveal delay={60} className="mt-8 grid gap-10 border-t border-border pt-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+        <Reveal
+          delay={60}
+          className="mt-8 grid gap-10 border-t border-border pt-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end"
+        >
           <div>
             <p className="eyebrow">
-              {categoryLabel(project.category)} — {project.date}
+              {categoryNames[project.category]} — {text.date}
             </p>
             <h1 className="mt-4 display text-[clamp(2.6rem,6vw,4.8rem)] text-foreground">
               {project.title}
             </h1>
             <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
-              {project.summary}
+              {text.summary}
             </p>
           </div>
           <div className="overflow-hidden rounded-sm border border-border bg-surface">
@@ -80,8 +90,11 @@ const ProjectDetail = () => {
       <section className="shell mt-14">
         <div className="grid gap-10 lg:grid-cols-[1fr_320px] lg:gap-16">
           <Reveal className="space-y-5">
-            {project.description.map((paragraph) => (
-              <p key={paragraph} className="text-[15px] leading-[1.75] text-foreground/85 sm:text-base">
+            {text.body.map((paragraph) => (
+              <p
+                key={paragraph}
+                className="text-[15px] leading-[1.75] text-foreground/85 sm:text-base"
+              >
                 {paragraph}
               </p>
             ))}
@@ -92,7 +105,7 @@ const ProjectDetail = () => {
                 rel="noreferrer noopener"
                 className="group inline-flex items-center gap-2 border-b border-accent/50 pb-1 font-mono text-[11px] uppercase tracking-[0.16em] text-accent transition-colors hover:border-accent"
               >
-                Visit {project.link.label}
+                {t("project.visit", { site: project.link.label })}
                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
             )}
@@ -101,7 +114,10 @@ const ProjectDetail = () => {
           <Reveal delay={80}>
             <dl className="border-t border-border">
               {meta.map((item) => (
-                <div key={item.label} className="grid grid-cols-[92px_1fr] gap-4 border-b border-border py-4">
+                <div
+                  key={item.label}
+                  className="grid grid-cols-[92px_1fr] gap-4 border-b border-border py-4"
+                >
                   <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                     {item.label}
                   </dt>
@@ -116,7 +132,7 @@ const ProjectDetail = () => {
       {project.gallery.length > 1 && (
         <section className="shell mt-16">
           <Reveal>
-            <p className="eyebrow border-t border-border pt-6">From the project</p>
+            <p className="eyebrow border-t border-border pt-6">{t("project.gallery")}</p>
           </Reveal>
           <div className="mt-6 columns-1 gap-5 sm:columns-2 lg:columns-3">
             {project.gallery.map((image, index) => (
@@ -124,7 +140,7 @@ const ProjectDetail = () => {
                 <figure className="overflow-hidden rounded-sm border border-border bg-surface">
                   <img
                     src={image}
-                    alt={`${project.title} — view ${index + 1}`}
+                    alt={`${project.title} — ${index + 1}`}
                     loading="lazy"
                     crossOrigin="anonymous"
                     className="w-full"
@@ -144,11 +160,12 @@ const ProjectDetail = () => {
           >
             <div>
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                Next project
+                {t("project.next")}
               </span>
               <h2 className="mt-2 font-display text-[clamp(1.9rem,3.4vw,2.8rem)] leading-tight text-foreground transition-colors group-hover:text-accent">
                 {next.title}
               </h2>
+              <p className="mt-1 max-w-md text-sm text-muted-foreground">{nextText.tagline}</p>
             </div>
             <span className="inline-flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground">
               {next.year}
@@ -161,9 +178,7 @@ const ProjectDetail = () => {
       <section className="shell mt-16">
         <Reveal>
           <div className="flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm text-muted-foreground">
-              Have a similar problem to solve? We answer every message.
-            </p>
+            <p className="text-sm text-muted-foreground">{t("project.cta")}</p>
             <a
               href={`mailto:${studio.contacts.email}`}
               className="inline-flex w-fit items-center gap-2 rounded-sm bg-primary px-5 py-3 font-mono text-[11px] uppercase tracking-[0.16em] text-primary-foreground transition-colors hover:bg-primary/90"

@@ -1,20 +1,23 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { studio } from "@/data/studio";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { Wordmark } from "./wordmark";
 
-const navItems = [
-  { to: "/work", label: "Work" },
-  { to: "/studio", label: "Studio" },
-  { to: "/contact", label: "Contact" },
-];
-
 const Header = () => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  const navItems = [
+    { to: "/work", label: t("nav.work") },
+    { to: "/studio", label: t("nav.studio") },
+    { to: "/contact", label: t("nav.contact") },
+  ];
 
   useEffect(() => setOpen(false), [location.pathname]);
 
@@ -72,17 +75,18 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-2">
+          <LanguageSwitcher className="hidden md:inline-flex" />
           <Link
             to="/contact"
-            className="hidden items-center gap-1.5 rounded-sm border border-border px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-foreground transition-colors hover:border-accent hover:text-accent md:inline-flex"
+            className="hidden items-center gap-1.5 rounded-sm border border-border px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-foreground transition-colors hover:border-accent hover:text-accent lg:inline-flex"
           >
-            Start a project
+            {t("nav.startProject")}
             <ArrowUpRight className="h-3.5 w-3.5" />
           </Link>
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
             aria-expanded={open}
             className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-border text-foreground transition-colors hover:border-accent hover:text-accent md:hidden"
           >
@@ -109,13 +113,14 @@ const Header = () => {
                 <ArrowUpRight className="h-4 w-4" />
               </NavLink>
             ))}
-            <div className="pt-5">
+            <div className="flex items-center justify-between gap-4 pt-5">
               <a
                 href={`mailto:${studio.contacts.email}`}
-                className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground"
+                className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground"
               >
                 {studio.contacts.email}
               </a>
+              <LanguageSwitcher />
             </div>
           </div>
         </div>
@@ -124,67 +129,81 @@ const Header = () => {
   );
 };
 
-const Footer = () => (
-  <footer className="mt-24 border-t border-border">
-    <div className="shell py-14">
-      <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
-        <div>
-          <Wordmark />
-          <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            {studio.tagline} Built in Vilnius since {studio.founded}.
-          </p>
-          <a
-            href={`mailto:${studio.contacts.email}`}
-            className="mt-6 inline-flex items-center gap-2 font-display text-2xl text-foreground transition-colors hover:text-accent"
-          >
-            {studio.contacts.email}
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
-        </div>
+const Footer = () => {
+  const { t } = useTranslation();
 
-        <div>
-          <p className="eyebrow">Navigate</p>
-          <ul className="mt-4 space-y-2.5">
-            {[{ to: "/", label: "Home" }, ...navItems].map((item) => (
-              <li key={item.to}>
-                <Link
-                  to={item.to}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+  const navItems = [
+    { to: "/", label: t("nav.home") },
+    { to: "/work", label: t("nav.work") },
+    { to: "/studio", label: t("nav.studio") },
+    { to: "/contact", label: t("nav.contact") },
+  ];
 
-        <div>
-          <p className="eyebrow">Studio</p>
-          <address className="mt-4 space-y-1 text-sm not-italic text-muted-foreground">
-            {studio.contacts.address.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
+  return (
+    <footer className="mt-24 border-t border-border">
+      <div className="shell py-14">
+        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+          <div>
+            <Wordmark />
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
+              {t("footer.blurb", { tagline: t("brand.tagline"), year: studio.founded })}
+            </p>
             <a
-              href={`tel:${studio.contacts.phoneHref}`}
-              className="mt-3 block transition-colors hover:text-foreground"
+              href={`mailto:${studio.contacts.email}`}
+              className="mt-6 inline-flex items-center gap-2 font-display text-2xl text-foreground transition-colors hover:text-accent"
             >
-              {studio.contacts.phone}
+              {studio.contacts.email}
+              <ArrowUpRight className="h-4 w-4" />
             </a>
-          </address>
+          </div>
+
+          <div>
+            <p className="eyebrow">{t("footer.navigate")}</p>
+            <ul className="mt-4 space-y-2.5">
+              {navItems.map((item) => (
+                <li key={item.to}>
+                  <Link
+                    to={item.to}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="eyebrow">{t("footer.studioLabel")}</p>
+            <address className="mt-4 space-y-1 text-sm not-italic text-muted-foreground">
+              {studio.contacts.address.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+              <a
+                href={`tel:${studio.contacts.phoneHref}`}
+                className="mt-3 block transition-colors hover:text-foreground"
+              >
+                {studio.contacts.phone}
+              </a>
+            </address>
+          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <span>
+            {t("footer.copyright", {
+              year: new Date().getFullYear(),
+              name: studio.name,
+            })}
+          </span>
+          <span>{t("brand.claim")}</span>
         </div>
       </div>
-
-      <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-        <span>
-          © {new Date().getFullYear()} {studio.name}
-        </span>
-        <span>{studio.claim}</span>
-      </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+};
 
 interface SiteLayoutProps {
   children: ReactNode;
