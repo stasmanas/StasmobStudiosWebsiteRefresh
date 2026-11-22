@@ -34,7 +34,7 @@ const Home = () => {
 
   const heroWork = featuredProjects.slice(0, 6);
   const recent = projects.filter((project) => Number(project.year) >= 2023);
-  const heroPlates = ["pickerlight", "dotstory", "elka"]
+  const heroPlates = ["audiozinas", "myriorama", "elka"]
     .map((slug) => projects.find((project) => project.slug === slug))
     .filter((project): project is (typeof projects)[number] => Boolean(project));
 
