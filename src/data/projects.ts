@@ -148,7 +148,7 @@ export const projects: Project[] = [
   },
   {
     slug: "audiozinas",
-    title: "Audiožinas",
+    title: "Audiozinas",
     year: "2015",
     client: "Tarp festival",
     category: "creative",
