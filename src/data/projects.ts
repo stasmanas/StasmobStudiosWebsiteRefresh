@@ -14,6 +14,8 @@ export interface Project {
   link?: { label: string; href: string };
   cover: string;
   gallery: string[];
+  /** Desktop page screenshots are shown stacked at full width; phone shots stay in the masonry grid. */
+  galleryLayout?: "stack" | "masonry";
 }
 
 /**
@@ -40,6 +42,7 @@ export const projects: Project[] = [
     featured: true,
     cover: "/work/pom/cover.jpg",
     gallery: ["/work/pom/g1.jpg", "/work/pom/g2.jpg", "/work/pom/g3.jpg"],
+    galleryLayout: "stack",
   },
   {
     slug: "sjaskunas",
@@ -50,6 +53,7 @@ export const projects: Project[] = [
     featured: true,
     cover: "/work/sjaskunas/cover.jpg",
     gallery: ["/work/sjaskunas/g1.jpg", "/work/sjaskunas/g2.jpg", "/work/sjaskunas/g3.jpg"],
+    galleryLayout: "stack",
   },
   {
     slug: "tuskulenai",
@@ -60,6 +64,7 @@ export const projects: Project[] = [
     featured: true,
     cover: "/work/tuskulenai/cover.jpg",
     gallery: ["/work/tuskulenai/g1.jpg", "/work/tuskulenai/g3.jpg"],
+    galleryLayout: "stack",
   },
   {
     slug: "trakai",
@@ -81,6 +86,7 @@ export const projects: Project[] = [
     link: { label: "taskoistorija.lt", href: "https://taskoistorija.lt" },
     cover: "/work/dotstory/cover.jpg",
     gallery: ["/work/dotstory/g1.jpg", "/work/dotstory/g2.jpg"],
+    galleryLayout: "stack",
   },
   {
     slug: "myriorama",
@@ -92,6 +98,7 @@ export const projects: Project[] = [
     link: { label: "myriorama.lt", href: "https://myriorama.lt" },
     cover: "/work/myriorama/cover.jpg",
     gallery: ["/work/myriorama/g1.jpg"],
+    galleryLayout: "stack",
   },
   {
     slug: "runwayhd",
@@ -113,6 +120,7 @@ export const projects: Project[] = [
     link: { label: "whispers.to", href: "https://www.whispers.to/" },
     cover: "/work/whispers/cover.jpg",
     gallery: ["/work/whispers/g1.jpg", "/work/whispers/g2.jpg"],
+    galleryLayout: "stack",
   },
   {
     slug: "medraid",
@@ -124,6 +132,7 @@ export const projects: Project[] = [
     link: { label: "medineraide.lt", href: "http://www.medineraide.lt" },
     cover: "/work/medraid/cover.jpg",
     gallery: ["/work/medraid/g1.jpg", "/work/medraid/g2.jpg", "/work/medraid/g3.jpg"],
+    galleryLayout: "stack",
   },
   {
     slug: "epmc",
@@ -135,6 +144,7 @@ export const projects: Project[] = [
     link: { label: "epmc.lt", href: "http://www.epmc.lt" },
     cover: "/work/epmc/cover.jpg",
     gallery: ["/work/epmc/g1.jpg"],
+    galleryLayout: "stack",
   },
   {
     slug: "elka",
@@ -156,6 +166,7 @@ export const projects: Project[] = [
     link: { label: "tarpfest.lt/audiozinas", href: "http://www.tarpfest.lt/audiozinas" },
     cover: "/work/audiozinas/cover.jpg",
     gallery: ["/work/audiozinas/g1.jpg"],
+    galleryLayout: "stack",
   },
   {
     slug: "pickerlight",
@@ -175,6 +186,7 @@ export const projects: Project[] = [
     featured: false,
     cover: "/work/muze-android/cover.jpg",
     gallery: ["/work/muze-android/g1.jpg", "/work/muze-android/g2.jpg"],
+    galleryLayout: "stack",
   },
   {
     slug: "appcamp-ios",
@@ -185,6 +197,7 @@ export const projects: Project[] = [
     featured: false,
     cover: "/work/appcamp-ios/cover.jpg",
     gallery: ["/work/appcamp-ios/g1.jpg"],
+    galleryLayout: "stack",
   },
 ];
 
