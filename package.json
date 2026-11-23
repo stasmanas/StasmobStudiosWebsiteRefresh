@@ -10,7 +10,8 @@
     "check": "pnpm lint && pnpm exec tsc --noEmit",
     "lint": "eslint .",
     "preview": "vite preview",
-    "pInstall": "pnpm install"
+    "pInstall": "pnpm install",
+    "postinstall": "chmod +x node_modules/.pnpm/@esbuild+linux-x64@0.28.2/node_modules/@esbuild/linux-x64/bin/esbuild || true"
   },
   "dependencies": {
     "@enter-pro/analytics-sdk": "^0.0.10",
@@ -69,7 +70,7 @@
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.2",
-    "vite-plugin-enter-dev": "^0.0.18",
+    "vite-plugin-enter-dev": "^0.0.16",
     "zod": "^4.1.5"
   },
   "devDependencies": {
@@ -92,6 +93,7 @@
     "tailwindcss": "^3.4.17",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.42.0",
-    "vite": "^7.1.4"
+    "vite": "^7.1.4",
+    "esbuild": "^0.28.2"
   }
 }
