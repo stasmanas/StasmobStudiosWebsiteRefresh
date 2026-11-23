@@ -37,6 +37,9 @@ const ProjectDetail = () => {
   }
 
   const text = texts[project.slug];
+  const gallery = project.gallery.filter((image) => image !== project.cover);
+  const stacked = project.galleryLayout === "stack";
+  const hasGallery = gallery.length > 1;
   const currentIndex = projects.findIndex((item) => item.slug === project.slug);
   const next = projects[(currentIndex + 1) % projects.length];
   const nextText = texts[next.slug];
@@ -129,26 +132,44 @@ const ProjectDetail = () => {
         </div>
       </section>
 
-      {project.gallery.length > 1 && (
+      {hasGallery && (
         <section className="shell mt-16">
           <Reveal>
             <p className="eyebrow border-t border-border pt-6">{t("project.gallery")}</p>
           </Reveal>
-          <div className="mt-6 columns-1 gap-5 sm:columns-2 lg:columns-3">
-            {project.gallery.map((image, index) => (
-              <Reveal key={image} delay={index * 50} className="mb-5 break-inside-avoid">
-                <figure className="overflow-hidden rounded-sm border border-border bg-surface">
-                  <img
-                    src={image}
-                    alt={`${project.title} — ${index + 1}`}
-                    loading="lazy"
-                    crossOrigin="anonymous"
-                    className="w-full"
-                  />
-                </figure>
-              </Reveal>
-            ))}
-          </div>
+          {stacked ? (
+            <div className="mx-auto mt-8 flex max-w-[1040px] flex-col gap-6">
+              {gallery.map((image, index) => (
+                <Reveal key={image} delay={index * 40}>
+                  <figure className="overflow-hidden rounded-sm border border-border bg-surface">
+                    <img
+                      src={image}
+                      alt={`${project.title} — ${index + 1}`}
+                      loading="lazy"
+                      crossOrigin="anonymous"
+                      className="w-full"
+                    />
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
+          ) : (
+            <div className="mt-6 columns-1 gap-5 sm:columns-2 lg:columns-3">
+              {gallery.map((image, index) => (
+                <Reveal key={image} delay={index * 50} className="mb-5 break-inside-avoid">
+                  <figure className="overflow-hidden rounded-sm border border-border bg-surface">
+                    <img
+                      src={image}
+                      alt={`${project.title} — ${index + 1}`}
+                      loading="lazy"
+                      crossOrigin="anonymous"
+                      className="w-full"
+                    />
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
+          )}
         </section>
       )}
 
